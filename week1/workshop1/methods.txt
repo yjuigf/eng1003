@@ -1,0 +1,20 @@
+"use strict"; //must be used once every file//
+
+Math Methods
+    Math.PI provides the value of PI
+    Math.abs(x) returns the absolute value of x
+    Math.random returns a random decimal (float) number greater than or equal to 1
+    Math.ceil(x) returns the value of x rounded up
+    Math.floor(x) returns the value of x rounded down
+    Math.pow(x,y) returns the base x to the exponent power y
+    Math.sqrt(x) returns the square root of x 
+    Math.sin(x), Math.cos(x), Math.tan(x) returns the respective respective value of x. x must be in radians. 
+    
+String Methods
+    Length - number of characters in the string
+    charAt(i) - the item at the given index of a string 
+    toLowerCase - converts the string completely to lower case
+    toUpperCase - converts the string completely to upper case
+    Substring(i1,i2) - extracts part of a string
+    \n - creates a new line in the string output
+    \t - creates a tab in the string output
