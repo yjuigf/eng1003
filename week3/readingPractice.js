@@ -30,7 +30,7 @@ function print(radius, area, circumference) {
         console.log(`Circle with Radius ${radius[i]}cm: Area is ${area[i]}, Circumference is ${circumference[i]}`);
     }
 }
-print(data, A, C);
+print(data,A,C);
 
 console.log("===============================================================");
 
