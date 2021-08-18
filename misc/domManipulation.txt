@@ -1,0 +1,46 @@
+CONNECTING HTML AND JS ------------------------------------------------------
+
+// HTML
+<!DOCTYPE html>
+    <html>
+        <head>
+            <title>Demo Page</title>
+        </head>
+        <body>
+            <h3>Input</h3>
+            <label>Name: </label><input type="text" id="name"><br>
+            <button onclick="getName()">Run</button><br>
+            <h3>Output</h3>
+            <div id="outputArea">
+            </div>
+            <script src="w4demo.js"></script>
+        </body>
+    </html>
+
+// JAVASCRIPT
+function getName()
+{
+    // make references
+    let nameRef = document.getElementById("name");
+    let outputRef = document.getElementById("outputArea");
+
+    // get input value
+    let name = nameRef.value;
+
+    // generate output
+    let output = `Your name is ${name}`;
+
+    // display it to the user
+    outputRef.innerHTML = output;
+}
+
+ADDING INTERACTION --------------------------------------------------------------
+
+// JAVASCRIPT
+function doClick()
+{
+    // do something on click
+}
+// assuming the button has id 'run'
+let buttonRef = document.getElementById("run");
+buttonRef.addEventListener("click", doClick);
