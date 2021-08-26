@@ -10,38 +10,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 
-    <header class="mdl-layout__header">
-        <div class="mdl-layout__header-row">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
 
+                <span class="mdl-layout-title">Title</span>
+
+                <div class="mdl-layout-spacer"></div>
+
+                <nav class="mdl-navigation mdl-layout--large-screen-only">
+                    <a class="mdl-navigation__link" href="">Link</a>
+                    <a class="mdl-navigation__link" href="">Link</a>
+                    <a class="mdl-navigation__link" href="">Link</a>
+                    <a class="mdl-navigation__link" href="">Link</a>
+                </nav>
+            </div>
+        </header>
+
+        <div class="mdl-layout__drawer">
             <span class="mdl-layout-title">Title</span>
-
-            <div class="mdl-layout-spacer"></div>
-
-            <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <nav class="mdl-navigation">
                 <a class="mdl-navigation__link" href="">Link</a>
                 <a class="mdl-navigation__link" href="">Link</a>
                 <a class="mdl-navigation__link" href="">Link</a>
                 <a class="mdl-navigation__link" href="">Link</a>
             </nav>
         </div>
-    </header>
 
-    <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title">Title</span>
-        <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
-        </nav>
-    </div>
+        <main class="mdl-layout__content">
+            <div class="page-content">
 
-    <main class="mdl-layout__content">
-        <div class="page-content">
-
-            <body>
                 <div class="mdl-grid">
                     <div class="mdl-cell mdl-cell--4-col"></div>
                     <div class="mdl-cell mdl-cell--4-col">
@@ -53,7 +53,8 @@
                         <script src="clock.js"></script>
                         <div>
 
-                            <hr></hr>
+                            <hr>
+                            </hr>
 
                             <h3>Reminder List</h3>
                             <p>Number of Reminders: <span id="reminderCount">0</span></p>
@@ -69,23 +70,24 @@
                         <div>
                             <h3>New Reminder</h3>
                             <label>Reminder Date: </label><input
-                                class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label has-placeholder" type="date"
-                                id="dateInput"><br><br>
+                                class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label has-placeholder"
+                                type="date" id="dateInput"><br><br>
                             <label>Contents: </label><input
-                                class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label has-placeholder" type="text"
-                                id="reminderInput"><br><br>
+                                class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label has-placeholder"
+                                type="text" id="reminderInput"><br><br>
                             <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
                                 id="submit">Add to List</button>
                         </div>
 
-                        <script src="reminder2.js"></script>
                     </div>
                     <div class="mdl-cell mdl-cell--4-col"></div>
                 </div>
-            </body>
 
-        </div>
-    </main>
-</div>
+            </div>
+        </main>
+    </div>
+    <script src="reminder.js"></script>
+
+</body>
 
 </html>
