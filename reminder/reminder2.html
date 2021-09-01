@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+		<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Reminders</title>
+	</head>
+	<body>
+		<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+		    <header class="mdl-layout__header">
+		        <div class="mdl-layout__header-row">
+		            <!-- Title -->
+		            <span class="mdl-layout-title">Title</span>
+		            <!-- Add spacer, to align navigation to the right -->
+		            <div class="mdl-layout-spacer"></div>
+		            <!-- Navigation. We hide it in small screens. -->
+		            <nav class="mdl-navigation mdl-layout--large-screen-only">
+		                <a class="mdl-navigation__link" href="">Link</a>
+		                <a class="mdl-navigation__link" href="">Link</a>
+		                <a class="mdl-navigation__link" href="">Link</a>
+		                <a class="mdl-navigation__link" href="">Link</a>
+		            </nav>
+		        </div>
+		    </header>
+		    <div class="mdl-layout__drawer">
+		        <span class="mdl-layout-title">Title</span>
+		        <nav class="mdl-navigation">
+		            <a class="mdl-navigation__link" href="">Link</a>
+		            <a class="mdl-navigation__link" href="">Link</a>
+		            <a class="mdl-navigation__link" href="">Link</a>
+		            <a class="mdl-navigation__link" href="">Link</a>
+		        </nav>
+		    </div>
+		    <main class="mdl-layout__content">
+		        <div class="page-content">
+					<!-- Main Content of page -->
+					<div class="mdl-grid">
+						<!-- empty first col -->
+						<div class="mdl-cell mdl-cell--4-col"></div>
+				  		<!-- second col -->
+						<div class="mdl-cell mdl-cell--4-col">
+							<div class="mdl-grid">
+								<div class="mdl-cell mdl-cell--12-col">
+									<h1>Reminders</h1>
+									<h3>Time now: <span id="clock"></span></h3>
+								</div>
+							</div>
+					  		<div class="mdl-grid">
+								<div class="mdl-cell mdl-cell--12-col">
+					  				<h3>Reminder List</h3>
+					        		<p>Number of Reminders: <span id="reminderCount">0</span></p>
+					  				<div id="reminderList">
+						  				<p>This list is empty</p>
+					  				</div>
+					  			</div>
+					  		</div>
+					      	<hr>
+					  		<div class="mdl-grid">
+								<div class="mdl-cell mdl-cell--12-col">
+					        		<h3>New Reminder</h3>
+					        			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label has-placeholder">
+					        				<input class="mdl-textfield__input" type="date" id="dateInput">
+						  					<label class="mdl-textfield__label" for="dateInput">Reminder Date</label>
+						  				</div>
+					        		<br>
+					        			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label has-placeholder">
+						  					<input class="mdl-textfield__input" type="text" id="reminderInput">
+						  					<label class="mdl-textfield__label" for="reminderInput">Contents</label>
+						  				</div>
+					  			
+							        <br>
+					        		<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="submit">Add to List</button>
+					        	</div>
+					  		</div>
+						</div>
+				  		<!-- empty third col -->
+						<div class="mdl-cell mdl-cell--4-col"></div>
+					</div>
+				</div>
+			</main>
+		</div>
+		<!-- link js file -->
+		<script src="reminder2.js"></script>
+	</body>
+</html>

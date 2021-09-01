@@ -1,0 +1,14 @@
+USER STORY FOR THE ENG1003 UNIT HOMEPAGE
+==============================================================================
+
+As a student, I would like to see a link to each topic for the ENG1003 unit, 
+so that I can easily navigate to a specific section of the reading for the unit. 
+
+==============================================================================
+INVEST Criteria
+I (Independence): Yes
+N (Negotiable): Yes
+V (Valuable): Yes
+E (Estimable): Yes
+S (Small): Yes
+T (Testable): Yes 

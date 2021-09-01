@@ -1,19 +1,24 @@
 "use strict";
 
-console.log("test");
-
-// responsible for adding the parameter "item" to the array provided in the parameter "list".
-function addItemToList(item, list) {
+/* 
+    The addItemToList function is responsible for adding the parameter "item" 
+    to the array (list) provided in the parameter "list".
+ */
+function addItemToList(item, list)
+{
     // check that the item is an object
-    if (typeof item !== 'object') {
+    if (typeof item !== 'object')
+    {
         return false;
     }
     // check that the list is an array
-    if (!Array.isArray(list)) {
+    if (!Array.isArray(list)) 
+    {
         return false;
     }
     // check that the item object has correct properties
-    if (!item.hasOwnProperty('content') || !item.hasOwnProperty('date')) {
+    if (!item.hasOwnProperty('content') || !item.hasOwnProperty('date'))
+    {
         return false;
     }
     // all checks are valid, now add the item to the list
@@ -21,16 +26,22 @@ function addItemToList(item, list) {
     return true; // return success
 }
 
-// takes one parameter "list" and returns a HTML string of the list contents
-function generateListHTML(list) {
+/*
+    The generateListHTML takes one parameter "list" and returns 
+    a HTML string of the list contents
+ */
+function generateListHTML(list)
+{
     // define and initialise output variable
     let output = "";
     // check if the list is empty
-    if (list.length === 0) {
+    if (list.length === 0)
+    {
         return "<p>This list is empty</p>";
     }
     // generate the html for the list using a for loop
-    for (let i = 0; i < list.length; i++) {
+    for (let i = 0; i < list.length; i++)
+    {
         // create a variable (shortcut) hold current item
         let item = list[i];
         // append output
@@ -39,33 +50,51 @@ function generateListHTML(list) {
     // return the output if all OK
     return output;
 }
+// TODO: Write a function "storeData" with two parameters, "data" and "key" 
+//       This function is responsible for storing data into localStorage.
+/*
+    Pseudo-code for storeData
+    1. Check if data is an object. If it is an object, 
+       convert it into a string using JSON.stringify
+    2. use localStorage.setItem(key, value) on the data above
 
+ */
 // responsible for storing data into localStorage.
 function storeData(data, key) {
     // convert data to a string if it is an object
     if (typeof (data) == Object) {
         data = JSON.stringify(data);
     }
-    localStorage(key, data);
+    localStorage.setItem(key, data);
 }
 
+
+// TODO: Write a function "retrieveData" with one parameter, "key" 
+//       This function is responsible for retrieving data from localStorage.
+/*
+    Pseudo-code for retrieveData
+    1. use localStorage.getItem(key) to retrieve the data
+    2. use try-catch-finally to convert it back using JSON.parse
+    3. in finally, return the data
+ */
 // responsible for retrieving data from localStorage.
 function retrieveData(key) {
-    jsonData = localStorage.getItem(key);
+    let jsonData = localStorage.getItem(key);
 
     try {
-        let data = JSON.parse(jsonData);
+        data = JSON.parse(jsonData);
     } catch (e) {
-        console.log("Error: Data could not be converted.")
+        console.log("Error: Data could not be converted.");
     } finally {
-        return data;
+        return;
     }
 }
 
-// triggered by the button click on the reminder page
-// adds a reminder item to the global list, reminderList
-function addToList() {
-    console.log("test");
+// function addToList()
+// This function is triggered by the button click on the reminder page
+// It adds a reminder item to the global list, reminderList
+function addToList()
+{
     // reference variables
     let dateRef = document.getElementById("dateInput");
     let contentRef = document.getElementById("reminderInput");
@@ -89,10 +118,11 @@ function addToList() {
     // update the page with new count and list
     countRef.innerText = reminderList.length;
     listRef.innerHTML = listContent;
-}
 
+}
 // function for the live clock on the page
-function liveClock() {
+function liveClock()
+{
     // Create a variable to hold the current date/time
     let date = new Date();
 
@@ -115,27 +145,28 @@ const UPDATE_TIME_MS = 500;
 // start the clock
 intervalHandle = setInterval(liveClock, UPDATE_TIME_MS)
 
-// on page load
-// check if local storage is available
+// TODO: on page load (here), 
+// 1. check if local storage is available
 if (typeof (Storage) !== "undefined") {
     console.log("localStorage is available.");
 } else {
     console.log("localStorage is not supported by current browser.");
 }
 
-// get data from local storage 
-data = retrieveData(STORAGE_KEY);
+// 2. get data from local storage 
+let data = retrieveData(STORAGE_KEY);
 
-// check if local storage data is empty, generate list 
+// 3. check if local storage data is empty (if empty, start with blank array)
+// 4. generate list and display
 if (data === null) {
-    reminderList = [];
+    let reminderList = [];
 } else {
-    reminderList = data;
+    let reminderList = data;
 }
 
-// update reminder count and list
-countRef.innerText = reminderList.length;
-listRef.innerHTML = listContent;
+// 5. update reminder count
+// countRef.innerText = reminderList.length;
+// listRef.innerHTML = listContent;
 
 // add event listener to button
 let buttonRef = document.getElementById("submit");
