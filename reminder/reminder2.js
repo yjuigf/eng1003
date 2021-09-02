@@ -1,55 +1,104 @@
 "use strict";
 
-/* 
-    The addItemToList function is responsible for adding the parameter "item" 
-    to the array (list) provided in the parameter "list".
- */
-function addItemToList(item, list)
+// Class to store the data for a single reminder
+class Reminder
 {
-    // check that the item is an object
-    if (typeof item !== 'object')
-    {
-        return false;
-    }
-    // check that the list is an array
-    if (!Array.isArray(list)) 
-    {
-        return false;
-    }
-    // check that the item object has correct properties
-    if (!item.hasOwnProperty('content') || !item.hasOwnProperty('date'))
-    {
-        return false;
-    }
-    // all checks are valid, now add the item to the list
-    list.push(item);
-    return true; // return success
+	constructor(content, date)
+	{
+		this._content = content;
+		this._date = date;
+	}
+
+	// accessors
+	get content() { return this._content; }
+	get date() { return this._date; }
+	// note: no mutators because the web app doesn't allow you
+	//       change the content of a reminder after creation
+	
+    // methods
+	toString()
+	{
+		return `<p>${this.content} at ${this.date}</p>`;
+	}
+	// this is a method to 'restore' the values of the current
+	// reminder item from public data.
+	// i.e. if you have an object that contains data for a 
+	// single reminder, you can call this method to restore
+	// that saved data
+	fromData(object)
+	{
+		this._content = object._content;
+		this._date = object._date;
+	}
 }
 
-/*
-    The generateListHTML takes one parameter "list" and returns 
-    a HTML string of the list contents
- */
-function generateListHTML(list)
+// Class for the list of reminders 'ReminderList'
+class ReminderList
 {
-    // define and initialise output variable
-    let output = "";
-    // check if the list is empty
-    if (list.length === 0)
+	constructor()
+	{
+		this._list = [];
+	}
+
+	// accessors
+	get list() { return this._list; }
+	get length() { return this._list.length; }
+	// note: no mutators because we will never 'replace' the list
+
+	// methods
+	toString()
+	{
+		// if empty list
+		if (this.length === 0)
+	    {
+	        return "<p>This list is empty</p>";
+	    }
+	    // non empty list... continue
+		let output = "";
+		for (let i = 0; i < this.length; i++)
+	    {
+	        // append output
+	        output += this.list[i].toString();
+	    }
+	    return output;
+	}
+
+	// TODO: Write a method 'addReminder' that takes two parameters
+	//       'content' and 'date'.
+	//       The method should create a new Reminder class instance
+	//       and add it to the list in this class instance using .push
+	//       You don't have to validate the arguments.
+    addReminder(content, date)
     {
-        return "<p>This list is empty</p>";
+        reminder = new Reminder(content, date);
+        this._list.push(reminder);
+        return this._list;
     }
-    // generate the html for the list using a for loop
-    for (let i = 0; i < list.length; i++)
+	
+	// TODO: Write a method 'fromData' that takes one parameter
+	//       'data'.
+	//       This method is used when restoring a reminder list from 
+	//       local storage data.
+	//       The method should begin by resetting this instance's list 
+	//       array to empty ( [] ), then loop over the _list array 
+	//       in the data, creating new Reminder instances for each 
+	//       item, and call the Reminder 'fromData' method before 
+	//       push/ adding it to the 'list' array.
+	fromData(data1)
     {
-        // create a variable (shortcut) hold current item
-        let item = list[i];
-        // append output
-        output += `<p>${item.content} at ${item.date}</p>`;
+        let temp = data1._list;
+        this._list = [];
+
+        for (let i = 0; i < temp.length; i++)
+        {
+            let reminder = new Reminder();
+            reminder.fromData(temp[i]);
+            this._list.push(reminder);
+        }
     }
-    // return the output if all OK
-    return output;
+	
 }
+
 // TODO: Write a function "storeData" with two parameters, "data" and "key" 
 //       This function is responsible for storing data into localStorage.
 /*
@@ -68,7 +117,6 @@ function storeData(data, key) {
     localStorage.setItem(key, data);
 }
 
-
 // TODO: Write a function "retrieveData" with one parameter, "key" 
 //       This function is responsible for retrieving data from localStorage.
 /*
@@ -81,12 +129,17 @@ function storeData(data, key) {
 function retrieveData(key) {
     let jsonData = localStorage.getItem(key);
 
-    try {
-        data = JSON.parse(jsonData);
-    } catch (e) {
+    try 
+    {
+        jsonData = JSON.parse(jsonData);
+    } 
+    catch (e) 
+    {
         console.log("Error: Data could not be converted.");
-    } finally {
-        return;
+    } 
+    finally 
+    {
+        return jsonData;
     }
 }
 
@@ -108,9 +161,9 @@ function addToList()
         date: new Date(dateRef.value).toDateString()
     };
 
-    addItemToList(item, reminderList);
+    reminderList.addReminder(item.content, item.date);
 
-    listContent = generateListHTML(reminderList);
+    listContent = reminderList.toString();
 
     // store data in local storage
     storeData(reminderList, STORAGE_KEY);
@@ -134,7 +187,7 @@ function liveClock()
 }
 
 // variable definitions
-let reminderList = []; // empty array to hold list of reminders
+let reminderList = new ReminderList(); // empty array to hold list of reminders
 const STORAGE_KEY = "asdmfjgbq8374tbnjdsfgh"; // create a key to use for local storage
 let listRef = document.getElementById("reminderList"); // reference for the reminderList div
 let countRef = document.getElementById("reminderCount"); // reference for the count field
@@ -158,15 +211,16 @@ let data = retrieveData(STORAGE_KEY);
 
 // 3. check if local storage data is empty (if empty, start with blank array)
 // 4. generate list and display
-if (data === null) {
-    let reminderList = [];
+if (data != "" && data != undefined) {
+    reminderList = new ReminderList();
+    reminderList.fromData(data);
 } else {
-    let reminderList = data;
+    reminderList = [];
 }
 
 // 5. update reminder count
-// countRef.innerText = reminderList.length;
-// listRef.innerHTML = listContent;
+countRef.innerText = reminderList.length;
+listRef.innerHTML = listContent;
 
 // add event listener to button
 let buttonRef = document.getElementById("submit");
