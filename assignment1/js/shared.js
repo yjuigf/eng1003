@@ -68,6 +68,7 @@ class Inventory
             category: categoryName,
             items: []
         };
+        this._warehouse += (newCat);
     }
 
     addItem(clothingItem, categoryIndex) {

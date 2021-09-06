@@ -65,12 +65,14 @@ function addClothingItem()
     document.getElementById("newItemPrice").innerHTML = "";
 
     // generate option elements for the category and display them on the page
-    let itemCategory = "<br></br>";
-    let inventoryCategory = inventory;
-    for (let i = 0; i < inventoryCategory.length; i++) {
-        itemCategory += `<br>${inventoryCategory[i]}</br>`;
+    let list = document.getElementById("newItemCategory");
+    for (let i=0; i<inventory.warehouse.length; i++) {
+        var option = document.createElement("option");
+        var cat = inventory.warehouse[i].category.toString();
+        console.log(cat);
+        option.innerHTML = cat;
+        list.add(option);
     }
-    document.getElementById("newItemCategory").innerHTML = itemCategory;
 
     // show the dialog box to the user
     dialog.showModal();
@@ -79,22 +81,6 @@ function addClothingItem()
 function displayInventory(inventory)
 {
     // TODO: Task 3
-    let inventoryHTML = document.getElementById("inventoryContainer");
-
-    for (let i = 0; i < inventory.length; i++) {
-        inventoryHTML += `<h5>${inventory.warehouse[i]}</h5>`;
-        inventoryHTML += `<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">`;
-        inventoryHTML += `<thead><tr>`;
-        // inventoryHTML += `<tr>`;
-        inventoryHTML += `<th class="mdl-data-table__cell--non-numeric">Item</th>`;
-        inventoryHTML += `<th>Stock</th>`;
-        inventoryHTML += `<th>Unit Price</th>`;
-        inventoryHTML += `<th>Actions</th>`;
-        inventoryHTML += `</tr></thead>`;
-        // inventoryHTML += `</thead>`;
-
-        
-    }
 }
 
 function confirmAddClothingItem()
