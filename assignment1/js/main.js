@@ -68,8 +68,7 @@ function addClothingItem()
     let list = document.getElementById("newItemCategory");
     for (let i=0; i<inventory.warehouse.length; i++) {
         var option = document.createElement("option");
-        var cat = inventory.warehouse[i].category.toString();
-        console.log(cat);
+        var cat = inventory.warehouse[i].category;
         option.innerHTML = cat;
         list.add(option);
     }
@@ -80,12 +79,76 @@ function addClothingItem()
 
 function displayInventory(inventory)
 {
+    let ivtContent = document.getElementById("inventoryContainer");
     // TODO: Task 3
+    // reset display
+    ivtContent.innerHTML = ""; 
+
+    for (let i=0; i<inventory.warehouse.length; i++) {
+        // create category
+        ivtContent.innerHTML += `<div class="mdl-grid">\n`;
+        ivtContent.innerHTML += `<div class="mdl-cell mdl-cell--12-col">\n`;
+        ivtContent.innerHTML += `<h5>${inventory.warehouse[i].category}</h5>\n`;
+
+        // create table with headers
+        ivtContent.innerHTML += `<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">\n`;
+        ivtContent.innerHTML += `<thead>\n`;
+        ivtContent.innerHTML += `<tr>\n`;
+        ivtContent.innerHTML += `<th class="mdl-data-table__cell--non-numeric">Item</th>\n`;
+        ivtContent.innerHTML += `<th>Stock</th>\n`;
+        ivtContent.innerHTML += `<th>Unit price</th>\n`;
+        ivtContent.innerHTML += `<th>Actions</th>\n`;
+
+        ivtContent.innerHTML += `</tr>\n`;
+        ivtContent.innerHTML += `</thead>\n`;
+
+        // create row for each item in the category
+        ivtContent.innerHTML += `<tbody>\n`;
+        for (let j=0; j<inventory.warehouse[i].items.length; j++) {
+            ivtContent.innerHTML += `<tr>\n`;
+            ivtContent.innerHTML += `<td class="mdl-data-table__cell--non-numeric">${inventory.warehouse[i].items[j].name}</td>\n`;
+            ivtContent.innerHTML += `<td>${inventory.warehouse[i].items[j].stock}</td>\n`;
+            ivtContent.innerHTML += `<td>${inventory.warehouse[i].items[j].price}</td>\n`;
+            ivtContent.innerHTML += `<td><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button" onclick="edit(0,0)" data-upgraded=",MaterialButton,MaterialRipple">Edit<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button></td>\n`;
+            ivtContent.innerHTML += `</tr>\n`;
+        }
+        ivtContent.innerHTML += `</tbody>\n`;
+        ivtContent.innerHTML += `</table>\n`;
+        ivtContent.innerHTML += `</div>\n`;
+        ivtContent.innerHTML += `</div>\n`;
+    }
 }
 
 function confirmAddClothingItem()
 {
     // TODO: Task 4
+    // define inputs 
+    let itemNameRef = document.getElementById("newItemName").value;
+    let itemStockRef = document.getElementById("newItemStock").value;
+    let itemPriceRef = document.getElementById("newItemPrice").value;
+    let itemCategory = document.getElementById("newItemCategory").value;
+
+    // create array of categories to find index
+    let categories = [];
+    for (let i=0; i<inventory.warehouse.length; i++) {
+        categories[i] = inventory.warehouse[i].category;
+    }
+    const check = (element) => element == itemCategory;
+    let catIndex = categories.findIndex(check);
+
+    // add item to inventory.warehouse
+    let newItem = new ClothingItem(itemNameRef, itemStockRef, itemPriceRef);
+    inventory.addItem(newItem, catIndex);
+
+    // update local storage, display inventory, close dialog windoe
+    updateLSData(ITEM_KEY, newItem);
+
+    // UPDATED INVENTORY UNDEFINED -------------------------------------------------------------------------
+    console.log(inventory.warehouse[0]); 
+    //------------------------------------------------------------------------------------------------------
+    
+    displayInventory(inventory);
+    dialog.close();
 }
 
 // Global code

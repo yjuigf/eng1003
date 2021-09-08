@@ -45,9 +45,9 @@ class ClothingItem
 
     fromData(data) {
         // set attributes
-        this._name = data._name;
-        this._price = data._price;
-        this._stock = data._stock;
+        this._name = data.name;
+        this._stock = data.stock;
+        this._price = data.price;
     }
 }
 
@@ -68,7 +68,7 @@ class Inventory
             category: categoryName,
             items: []
         };
-        this._warehouse += (newCat);
+        this._warehouse.push(newCat);
     }
 
     addItem(clothingItem, categoryIndex) {
@@ -84,7 +84,22 @@ class Inventory
     }
 
     fromData(data) {
-        this._warehouse = data._warehouse;
+        let warehouse = data._warehouse;
+        this._warehouse = [];
+        for (let i=0; i<warehouse.length; i++) {
+            let tempCategory = {
+                category: warehouse[i].category,
+                items: warehouse[i].items
+            };
+
+            for (let j=0; j<tempCategory.items.length; j++) {
+                let tempClothing = new ClothingItem();
+                tempClothing.fromData(tempCategory.items[j]);
+                tempCategory.items[j] = tempClothing;
+            }
+
+        this._warehouse.push(tempCategory);    
+        }
     }
 }
 
@@ -134,6 +149,7 @@ function updateLSData(key, data)
 }
 // Global inventory variable
 let inventory = new Inventory();
+
 // Check if data available in LS before continuing
 if (checkLSData(WAREHOUSE_KEY))
 {
