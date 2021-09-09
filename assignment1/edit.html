@@ -1,4 +1,5 @@
 <html>
+
 <head>
     <title>We are Groots - Inventory</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,11 +14,13 @@
         .mdl-layout__header-row {
             padding: 0 16px 0 16px;
         }
+
         a {
             cursor: pointer;
         }
     </style>
 </head>
+
 <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <header class="mdl-layout__header">
@@ -35,10 +38,34 @@
         <main class="mdl-layout__content">
             <div class="page-content">
                 <!-- placeholder for edit page content -->
-            </div>
+                    <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+                        <h5>Edit Clothing Item</h5>
+                    </div>
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--12-col">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label has-placeholder">
+                                <input class="mdl-textfield__input" type="text" id="updateItemName">
+                                <label class="mdl-textfield__label" for="updateItemName">Update Item Name</label>
+                            </div><br>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label has-placeholder">
+                                <input class="mdl-textfield__input" type="text" id="updateItemStock">
+                                <label class="mdl-textfield__label" for="updateItemStock">Update Stock</label>
+                            </div><br>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label has-placeholder">
+                                <input class="mdl-textfield__input" type="text" id="updateItemPrice">
+                                <label class="mdl-textfield__label" for="updateItemPrice">Update Unit Price</label>
+                            </div><br>
+                            <div>
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button" onclick="submit()">Submit</button>
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button" onclick="cancel()">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </main>
     </div>
     <script src="js/shared.js"></script>
     <script src="js/edit.js"></script>
 </body>
+
 </html>

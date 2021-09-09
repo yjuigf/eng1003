@@ -6,11 +6,10 @@
  * @param {number} category category index in inventory
  * @param {number} item item index in inventory
  */
-function edit(category,item)
-{
+function edit(category, item) {
     // store data in LS
-    localStorage.setItem(CATEGORY_KEY,category);
-    localStorage.setItem(ITEM_KEY,item);
+    localStorage.setItem(CATEGORY_KEY, category);
+    localStorage.setItem(ITEM_KEY, item);
     // redirect to edit page
     window.location = "edit.html";
 }
@@ -19,24 +18,20 @@ function edit(category,item)
  * Runs when 'Add Category' is clicked on the header nav bar.
  * Creates a new category, saves it in LS and updates the display
  */
-function addClothingCategory()
-{
+function addClothingCategory() {
     // Get category name
     let newCategory = prompt("Name of new category?");
     // if user clicks cancel
-    if(newCategory == null)
-    {
+    if (newCategory == null) {
         return;
     }
     // Try again if empty input
-    while (newCategory == "")
-    {
+    while (newCategory == "") {
         alert("That input is invalid");
         newCategory = prompt("Name of new category?");
     }
     // Confirm add category
-    if(confirm(`Confirm to add ${newCategory} as a category?`))
-    {
+    if (confirm(`Confirm to add ${newCategory} as a category?`)) {
         // add to inventory
         inventory.addCategory(newCategory);
         // update LS
@@ -50,23 +45,21 @@ function addClothingCategory()
  * Runs when the cancel button is clicked inside the dialog polyfill.
  * Closes the dialog box.
  */
-function cancelAddClothingItem()
-{
+function cancelAddClothingItem() {
     // close dialog box
     dialog.close();
 }
 
-function addClothingItem()
-{
+function addClothingItem() {
     // TODO: Task 2
     // reset dialog box inputs
-    document.getElementById("newItemName").innerHTML  = "";
+    document.getElementById("newItemName").innerHTML = "";
     document.getElementById("newItemStock").innerHTML = "";
     document.getElementById("newItemPrice").innerHTML = "";
 
     // generate option elements for the category and display them on the page
     let list = document.getElementById("newItemCategory");
-    for (let i=0; i<inventory.warehouse.length; i++) {
+    for (let i = 0; i < inventory.warehouse.length; i++) {
         var option = document.createElement("option");
         var cat = inventory.warehouse[i].category;
         option.innerHTML = cat;
@@ -77,50 +70,50 @@ function addClothingItem()
     dialog.showModal();
 }
 
-function displayInventory(inventory)
-{
-    let ivtContent = document.getElementById("inventoryContainer");
+function displayInventory(inventory) {
     // TODO: Task 3
     // reset display
-    ivtContent.innerHTML = ""; 
+    let ivtContent = document.getElementById("inventoryContainer");
+    ivtContent.innerHTML = "";
 
-    for (let i=0; i<inventory.warehouse.length; i++) {
-        // create category
-        ivtContent.innerHTML += `<div class="mdl-grid">\n`;
-        ivtContent.innerHTML += `<div class="mdl-cell mdl-cell--12-col">\n`;
-        ivtContent.innerHTML += `<h5>${inventory.warehouse[i].category}</h5>\n`;
+    for (let i = 0; i < inventory.warehouse.length; i++) {
+        // create category and table header
+        ivtContent.innerHTML += `<div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone"
+                id="inventoryContent">
+                <h5>${inventory.warehouse[i].category}</h5>
+                
+                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                    <thead>
+                        <tr>
+                            <th class="mdl-data-table__cell--non-numeric">Item</th>
+                            <th>Stock</th>
+                            <th>Unit price</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>\n`;
 
-        // create table with headers
-        ivtContent.innerHTML += `<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">\n`;
-        ivtContent.innerHTML += `<thead>\n`;
-        ivtContent.innerHTML += `<tr>\n`;
-        ivtContent.innerHTML += `<th class="mdl-data-table__cell--non-numeric">Item</th>\n`;
-        ivtContent.innerHTML += `<th>Stock</th>\n`;
-        ivtContent.innerHTML += `<th>Unit price</th>\n`;
-        ivtContent.innerHTML += `<th>Actions</th>\n`;
+                    // create row for each item in category
+                    for (let j = 0; j < inventory.warehouse[i].items.length; j++) {
+                    ivtContent.innerHTML += 
+                    `<tr>
+                        <td class="mdl-data-table__cell--non-numeric">${inventory.warehouse[i].items[j].name}</td>
+                        <td>${inventory.warehouse[i].items[j].stock}</td>
+                        <td>$${inventory.warehouse[i].items[j].price}</td>
+                        <td><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button" onclick="edit(${i},${j})">Edit</button></td>
+                    </tr>\n`;
+                    }
 
-        ivtContent.innerHTML += `</tr>\n`;
-        ivtContent.innerHTML += `</thead>\n`;
-
-        // create row for each item in the category
-        ivtContent.innerHTML += `<tbody>\n`;
-        for (let j=0; j<inventory.warehouse[i].items.length; j++) {
-            ivtContent.innerHTML += `<tr>\n`;
-            ivtContent.innerHTML += `<td class="mdl-data-table__cell--non-numeric">${inventory.warehouse[i].items[j].name}</td>\n`;
-            ivtContent.innerHTML += `<td>${inventory.warehouse[i].items[j].stock}</td>\n`;
-            ivtContent.innerHTML += `<td>${inventory.warehouse[i].items[j].price}</td>\n`;
-            ivtContent.innerHTML += `<td><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button" onclick="edit(0,0)" data-upgraded=",MaterialButton,MaterialRipple">Edit<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button></td>\n`;
-            ivtContent.innerHTML += `</tr>\n`;
-        }
-        ivtContent.innerHTML += `</tbody>\n`;
-        ivtContent.innerHTML += `</table>\n`;
-        ivtContent.innerHTML += `</div>\n`;
-        ivtContent.innerHTML += `</div>\n`;
+                    // close tags
+                    ivtContent.innerHTML += `</tbody>
+                </table>
+            </div>
+        </div>`;
     }
 }
 
-function confirmAddClothingItem()
-{
+function confirmAddClothingItem() {
     // TODO: Task 4
     // define inputs 
     let itemNameRef = document.getElementById("newItemName").value;
@@ -130,7 +123,7 @@ function confirmAddClothingItem()
 
     // create array of categories to find index
     let categories = [];
-    for (let i=0; i<inventory.warehouse.length; i++) {
+    for (let i = 0; i < inventory.warehouse.length; i++) {
         categories[i] = inventory.warehouse[i].category;
     }
     const check = (element) => element == itemCategory;
@@ -140,13 +133,10 @@ function confirmAddClothingItem()
     let newItem = new ClothingItem(itemNameRef, itemStockRef, itemPriceRef);
     inventory.addItem(newItem, catIndex);
 
-    // update local storage, display inventory, close dialog windoe
+    // update local storage 
     updateLSData(ITEM_KEY, newItem);
 
-    // UPDATED INVENTORY UNDEFINED -------------------------------------------------------------------------
-    console.log(inventory.warehouse[0]); 
-    //------------------------------------------------------------------------------------------------------
-    
+    // display inventory, close dialog window
     displayInventory(inventory);
     dialog.close();
 }
@@ -154,8 +144,7 @@ function confirmAddClothingItem()
 // Global code
 // Registers the dialog box polyfill
 let dialog = document.getElementById("addDialog");
-if (!dialog.showModal) 
-{
+if (!dialog.showModal) {
     dialogPolyfill.registerDialog(dialog);
 }
 // Displays the warehouse inventory when the page loads

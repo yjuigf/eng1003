@@ -74,7 +74,7 @@ class Inventory
     addItem(clothingItem, categoryIndex) {
         // adds a clothing item to the warehouse array in its appropriate category
         if (clothingItem instanceof ClothingItem) {
-            this._warehouse[categoryIndex] += clothingItem;
+            this._warehouse[categoryIndex].items.push(clothingItem);
         }
     }
 
