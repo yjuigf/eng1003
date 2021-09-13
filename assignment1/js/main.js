@@ -94,20 +94,20 @@ function displayInventory(inventory) {
                     </thead>
                     <tbody>\n`;
 
-                    // create row for each item in category
-                    for (let j = 0; j < inventory.warehouse[i].items.length; j++) {
-                    ivtContent.innerHTML += 
-                    `<tr>
-                        <td class="mdl-data-table__cell--non-numeric">${inventory.warehouse[i].items[j].name}</td>
-                        <td>${inventory.warehouse[i].items[j].stock}</td>
-                        <td>$${inventory.warehouse[i].items[j].price}</td>
-                        <td><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button" onclick="edit(${i},${j})">Edit</button></td>
-                    </tr>\n`;
-                    }
+        // create row for each item in category
+        for (let j = 0; j < inventory.warehouse[i].items.length; j++) {
+            ivtContent.innerHTML +=
+                `<tr>
+                    <td class="mdl-data-table__cell--non-numeric">${inventory.warehouse[i].items[j].name}</td>
+                    <td>${inventory.warehouse[i].items[j].stock}</td>
+                    <td>$${inventory.warehouse[i].items[j].price}</td>
+                    <td><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button" onclick="edit(${i},${j})">Edit</button></td>
+                </tr>`;
+        }
 
-                    // close tags
-                    ivtContent.innerHTML += `</tbody>
-                </table>
+        // close tags
+        ivtContent.innerHTML += `</tbody>
+                    </table>
             </div>
         </div>`;
     }

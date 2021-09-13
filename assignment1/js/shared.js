@@ -80,7 +80,7 @@ class Inventory
 
     getItem(categoryIndex, itemIndex) {
         //  returns a clothing item from the warehouse using the provided category and item index
-        return this._warehouse[categoryIndex][itemIndex];
+        return this._warehouse[categoryIndex].items[itemIndex];
     }
 
     fromData(data) {
