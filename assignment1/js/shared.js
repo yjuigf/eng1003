@@ -3,6 +3,7 @@
 const CATEGORY_KEY = "currentCategoryIndex";
 const ITEM_KEY = "currentItemIndex";
 const WAREHOUSE_KEY = "warehouseData";
+const INVENTORY_KEY = "inventoryData";
 
 class ClothingItem
 {
@@ -45,9 +46,9 @@ class ClothingItem
 
     fromData(data) {
         // set attributes
-        this._name = data.name;
-        this._stock = data.stock;
-        this._price = data.price;
+        this._name = data._name;
+        this._stock = data._stock;
+        this._price = data._price;
     }
 }
 

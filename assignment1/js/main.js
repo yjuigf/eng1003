@@ -72,13 +72,15 @@ function addClothingItem() {
 
 function displayInventory(inventory) {
     // TODO: Task 3
-    // reset display
-    let ivtContent = document.getElementById("inventoryContainer");
-    ivtContent.innerHTML = "";
+    let ivtContentRef = document.getElementById("inventoryContainer");
 
-    for (let i = 0; i < inventory.warehouse.length; i++) {
-        // create category and table header
-        ivtContent.innerHTML += `<div class="mdl-grid">
+    if (inventory.warehouse.length != 0) {
+
+        let ivtContent = "";
+
+        for (let i = 0; i < inventory.warehouse.length; i++) {
+            // create category and table header
+            ivtContent += `<div class="mdl-grid">
             <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone"
                 id="inventoryContent">
                 <h5>${inventory.warehouse[i].category}</h5>
@@ -92,24 +94,25 @@ function displayInventory(inventory) {
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>\n`;
+                    <tbody>`;
 
-        // create row for each item in category
-        for (let j = 0; j < inventory.warehouse[i].items.length; j++) {
-            ivtContent.innerHTML +=
-                `<tr>
+            // create row for each item in category
+            for (let j = 0; j < inventory.warehouse[i].items.length; j++) {
+                ivtContent +=
+                    `<tr>
                     <td class="mdl-data-table__cell--non-numeric">${inventory.warehouse[i].items[j].name}</td>
                     <td>${inventory.warehouse[i].items[j].stock}</td>
                     <td>$${inventory.warehouse[i].items[j].price}</td>
                     <td><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button" onclick="edit(${i},${j})">Edit</button></td>
                 </tr>`;
+            }
+
+            // close tags
+            ivtContent += `</tbody></table></div></div>`;
         }
 
-        // close tags
-        ivtContent.innerHTML += `</tbody>
-                    </table>
-            </div>
-        </div>`;
+        // update the display
+        ivtContentRef.innerHTML = ivtContent;
     }
 }
 
@@ -134,7 +137,7 @@ function confirmAddClothingItem() {
     inventory.addItem(newItem, catIndex);
 
     // update local storage 
-    updateLSData(ITEM_KEY, newItem);
+    updateLSData(WAREHOUSE_KEY, inventory);
 
     // display inventory, close dialog window
     displayInventory(inventory);
