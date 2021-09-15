@@ -13,6 +13,7 @@ function edit(category, item) {
     // redirect to edit page
     window.location = "edit.html";
 }
+
 /**
  * addClothingCategory function
  * Runs when 'Add Category' is clicked on the header nav bar.
@@ -40,6 +41,7 @@ function addClothingCategory() {
         displayInventory(inventory);
     }
 }
+
 /**
  * cancelAddClothingItem function
  * Runs when the cancel button is clicked inside the dialog polyfill.
@@ -59,12 +61,11 @@ function addClothingItem() {
 
     // generate option elements for the category and display them on the page
     let list = document.getElementById("newItemCategory");
+    let output = '<option value="0"></option>';
     for (let i = 0; i < inventory.warehouse.length; i++) {
-        var option = document.createElement("option");
-        var cat = inventory.warehouse[i].category;
-        option.innerHTML = cat;
-        list.add(option);
+        output += `<option value="${i}">${inventory.warehouse[i].category}</option>`;
     }
+    list.innerHTML = output;
 
     // show the dialog box to the user
     dialog.showModal();
@@ -74,12 +75,13 @@ function displayInventory(inventory) {
     // TODO: Task 3
     let ivtContentRef = document.getElementById("inventoryContainer");
 
+    // start printing if the warehouse is not empty
     if (inventory.warehouse.length != 0) {
-
+        // start new string
         let ivtContent = "";
 
+        // create category and table header for each category
         for (let i = 0; i < inventory.warehouse.length; i++) {
-            // create category and table header
             ivtContent += `<div class="mdl-grid">
             <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone"
                 id="inventoryContent">
@@ -99,7 +101,7 @@ function displayInventory(inventory) {
             // create row for each item in category
             for (let j = 0; j < inventory.warehouse[i].items.length; j++) {
                 ivtContent +=
-                    `<tr>
+                `<tr>
                     <td class="mdl-data-table__cell--non-numeric">${inventory.warehouse[i].items[j].name}</td>
                     <td>${inventory.warehouse[i].items[j].stock}</td>
                     <td>$${inventory.warehouse[i].items[j].price}</td>
@@ -124,17 +126,9 @@ function confirmAddClothingItem() {
     let itemPriceRef = document.getElementById("newItemPrice").value;
     let itemCategory = document.getElementById("newItemCategory").value;
 
-    // create array of categories to find index
-    let categories = [];
-    for (let i = 0; i < inventory.warehouse.length; i++) {
-        categories[i] = inventory.warehouse[i].category;
-    }
-    const check = (element) => element == itemCategory;
-    let catIndex = categories.findIndex(check);
-
     // add item to inventory.warehouse
     let newItem = new ClothingItem(itemNameRef, itemStockRef, itemPriceRef);
-    inventory.addItem(newItem, catIndex);
+    inventory.addItem(newItem, itemCategory);
 
     // update local storage 
     updateLSData(WAREHOUSE_KEY, inventory);
@@ -150,5 +144,6 @@ let dialog = document.getElementById("addDialog");
 if (!dialog.showModal) {
     dialogPolyfill.registerDialog(dialog);
 }
+
 // Displays the warehouse inventory when the page loads
 displayInventory(inventory);

@@ -3,7 +3,6 @@
 const CATEGORY_KEY = "currentCategoryIndex";
 const ITEM_KEY = "currentItemIndex";
 const WAREHOUSE_KEY = "warehouseData";
-const INVENTORY_KEY = "inventoryData";
 
 class ClothingItem
 {
