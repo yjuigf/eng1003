@@ -11,6 +11,7 @@ document.getElementById("updateItemName").value = `${item._name}`;
 document.getElementById("updateItemPrice").value = `${item._price}`;
 document.getElementById("updateItemStock").value = `${item._stock}`;
 
+// define input references
 let updateNameRef = document.getElementById("updateItemName");
 let updatePriceRef = document.getElementById("updateItemPrice");
 let updateStockRef = document.getElementById("updateItemStock");

@@ -13,6 +13,7 @@ class ClothingItem
         this._price = price;
     }
 
+    // getters
     get name() {
         return this._name;
     }
@@ -25,6 +26,7 @@ class ClothingItem
         return this._price;
     }
 
+    // setters
     set name(newName) {
         if (typeof(newName) == String) {
             this._name = newName;
@@ -43,6 +45,7 @@ class ClothingItem
         }
     }
 
+    // methods
     fromData(data) {
         // set attributes
         this._name = data._name;
@@ -58,12 +61,14 @@ class Inventory
         this._warehouse = [];
     }
 
+    // getters
     get warehouse() {
         return this._warehouse;
     }
 
+    // methods
     addCategory(categoryName) {
-        // adds a new category to the warehouse array
+        // add a new category to the warehouse array
         let newCat = {
             category: categoryName,
             items: []
@@ -72,32 +77,37 @@ class Inventory
     }
 
     addItem(clothingItem, categoryIndex) {
-        // adds a clothing item to the warehouse array in its appropriate category
+        // add a clothing item to the warehouse array in its appropriate category
         if (clothingItem instanceof ClothingItem) {
             this._warehouse[categoryIndex].items.push(clothingItem);
         }
     }
 
     getItem(categoryIndex, itemIndex) {
-        //  returns a clothing item from the warehouse using the provided category and item index
+        //  return a clothing item from the warehouse using the provided category and item index
         return this._warehouse[categoryIndex].items[itemIndex];
     }
 
     fromData(data) {
+    // re-instantiate classes when data is retrieved from local storage
         let warehouse = data._warehouse;
         this._warehouse = [];
+
+        // recreate each category as an object
         for (let i=0; i<warehouse.length; i++) {
             let tempCategory = {
                 category: warehouse[i].category,
                 items: warehouse[i].items
             };
 
+            // recreate each item in each category as an instance of ClothingItem
             for (let j=0; j<tempCategory.items.length; j++) {
                 let tempClothing = new ClothingItem();
                 tempClothing.fromData(tempCategory.items[j]);
                 tempCategory.items[j] = tempClothing;
             }
 
+        // update the data object
         this._warehouse.push(tempCategory);    
         }
     }

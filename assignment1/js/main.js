@@ -55,13 +55,17 @@ function cancelAddClothingItem() {
 function addClothingItem() {
     // TODO: Task 2
     // reset dialog box inputs
-    document.getElementById("newItemName").innerHTML = "";
-    document.getElementById("newItemStock").innerHTML = "";
-    document.getElementById("newItemPrice").innerHTML = "";
+    document.getElementById("newItemName").value = "";
+    document.getElementById("newItemStock").value = "";
+    document.getElementById("newItemPrice").value = "";
 
     // generate option elements for the category and display them on the page
     let list = document.getElementById("newItemCategory");
+
+    // default option is blank
     let output = '<option value="0"></option>';
+
+    // create an option for each category currently in the warehouse array
     for (let i = 0; i < inventory.warehouse.length; i++) {
         output += `<option value="${i}">${inventory.warehouse[i].category}</option>`;
     }
@@ -126,7 +130,7 @@ function confirmAddClothingItem() {
     let itemPriceRef = document.getElementById("newItemPrice").value;
     let itemCategory = document.getElementById("newItemCategory").value;
 
-    // add item to inventory.warehouse
+    // add item to warehouse
     let newItem = new ClothingItem(itemNameRef, itemStockRef, itemPriceRef);
     inventory.addItem(newItem, itemCategory);
 
